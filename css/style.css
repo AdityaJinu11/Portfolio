@@ -1,0 +1,2059 @@
+/* ==========================================================================
+   HAWKINS '84 / THE UPSIDE DOWN - HIGH-OCTANE STYLESHEET
+   Crafted for Aditya Jinu - 1st Year B.Tech CSE (AI/ML)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Press+Start+2P&family=Space+Grotesk:wght@400;600;700&family=VT323&display=swap');
+
+:root {
+  /* Dimensions & Spacing */
+  --split-percent: 50%;
+  --header-height: 72px;
+
+  /* Right Side Up Palette (Neon Red & Vintage Hawkins) */
+  --bg-rsu: #080305;
+  --bg-rsu-card: rgba(26, 7, 12, 0.75);
+  --rsu-red-primary: #ff113a;
+  --rsu-red-glow: rgba(255, 17, 58, 0.65);
+  --rsu-amber: #ff9900;
+  --rsu-text: #fde8ec;
+  --rsu-muted: #d49aab;
+
+  /* The Upside Down Palette (Muted Ash & Bioluminescent Cyan) */
+  --bg-ud: #02070c;
+  --bg-ud-card: rgba(6, 20, 32, 0.75);
+  --ud-cyan-primary: #38bdf8;
+  --ud-cyan-glow: rgba(56, 189, 248, 0.55);
+  --ud-spore-blue: #7dd3fc;
+  --ud-decay: #0f273b;
+  --ud-text: #e0f2fe;
+  --ud-muted: #7fa5bf;
+
+  /* General Retro Accents */
+  --arcade-gold: #fbbf24;
+  --vcr-green: #34d399;
+  --vcr-green-glow: rgba(52, 211, 153, 0.6);
+  --wood-desk: #24140e;
+  --parchment: #f4ecd8;
+  --parchment-ink: #2b1d0c;
+
+  /* Fonts */
+  --font-hawkins: 'Cinzel Decorative', Georgia, serif;
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-crt: 'VT323', monospace;
+  --font-sans: 'Space Grotesk', -apple-system, sans-serif;
+}
+
+/* Base Resets */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-rsu);
+  color: var(--rsu-text);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  background: radial-gradient(circle at 50% 50%, #120509 0%, #050102 100%);
+  color: var(--rsu-text);
+  overflow-x: hidden;
+  user-select: text;
+}
+
+/* Global Canvas for Spores & Sparks */
+#particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* CRT Scanlines Overlay */
+.crt-scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.35) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   1. THE HOOK: HAWKINS PALACE ARCADE LOADING SCREEN
+   ========================================================================== */
+.arcade-loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, #1b0910 0%, #020102 100%);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1), opacity 0.7s ease;
+}
+
+.arcade-loading-screen.arcade-exit {
+  transform: scale(1.15);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.arcade-cabinet {
+  max-width: 820px;
+  width: 100%;
+  background: #0d0408;
+  border: 8px solid #3d0e1d;
+  border-radius: 20px;
+  box-shadow: 
+    0 0 50px rgba(255, 17, 58, 0.35),
+    inset 0 0 30px rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  position: relative;
+}
+
+.arcade-bezel {
+  background: #070204;
+  border: 4px solid #ff113a;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(255, 17, 58, 0.4), inset 0 0 20px rgba(255, 17, 58, 0.2);
+  padding: 24px;
+}
+
+.arcade-header-marque {
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 2px dashed rgba(255, 17, 58, 0.4);
+  padding-bottom: 12px;
+}
+
+.arcade-badge {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: var(--arcade-gold);
+  letter-spacing: 2px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.arcade-title {
+  font-family: var(--font-hawkins);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: #fff;
+  text-shadow: 
+    0 0 10px #ff113a,
+    0 0 20px #ff113a,
+    0 0 40px #ff113a;
+  letter-spacing: 4px;
+  animation: neonFlicker 3.5s infinite alternate;
+}
+
+.arcade-marquee-sub {
+  font-family: var(--font-crt);
+  font-size: 1.4rem;
+  color: #ff9900;
+  letter-spacing: 2px;
+}
+
+.arcade-monitor-screen {
+  background: radial-gradient(circle at center, #170408 0%, #030002 90%);
+  border: 3px solid #220810;
+  border-radius: 10px;
+  padding: 28px 20px;
+  text-align: center;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.95);
+}
+
+.score-board {
+  display: flex;
+  justify-content: space-around;
+  font-family: var(--font-pixel);
+  font-size: 0.75rem;
+  color: #fde8ec;
+  margin-bottom: 24px;
+}
+
+.score-col .score-val {
+  color: var(--arcade-gold);
+  margin-top: 6px;
+  font-size: 0.9rem;
+}
+
+.arcade-character-showcase {
+  margin: 20px 0;
+}
+
+.arcade-avatar-wrapper {
+  display: inline-block;
+  padding: 6px;
+  background: #ff113a;
+  border-radius: 50%;
+  box-shadow: 0 0 25px #ff113a;
+  animation: pulseAvatar 2s infinite;
+}
+
+.arcade-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.1) brightness(1.05);
+}
+
+.arcade-player-name {
+  font-family: var(--font-hawkins);
+  font-size: 1.6rem;
+  color: #fff;
+  margin-top: 14px;
+  text-shadow: 0 0 12px #ff113a;
+}
+
+.arcade-player-role {
+  font-family: var(--font-crt);
+  font-size: 1.3rem;
+  color: #fca5a5;
+  margin-top: 4px;
+}
+
+.arcade-player-guild {
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  color: #ff9900;
+  margin-top: 6px;
+  letter-spacing: 1px;
+}
+
+/* Insert Coin Button & Coin Slot */
+.coin-slot-section {
+  margin-top: 28px;
+}
+
+.insert-coin-button {
+  background: linear-gradient(180deg, #ff113a 0%, #b80524 100%);
+  border: 3px solid #ffd4dc;
+  border-radius: 8px;
+  padding: 16px 28px;
+  color: #fff;
+  font-family: var(--font-pixel);
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 
+    0 0 25px rgba(255, 17, 58, 0.8),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  transition: transform 0.1s, box-shadow 0.2s, background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.insert-coin-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 35px rgba(255, 17, 58, 1);
+  background: linear-gradient(180deg, #ff2d55 0%, #c50b2c 100%);
+}
+
+.insert-coin-button:active {
+  transform: translateY(2px) scale(0.98);
+}
+
+.coin-instruction {
+  font-family: var(--font-crt);
+  font-size: 1.25rem;
+  color: #9ca3af;
+  margin-top: 10px;
+}
+
+.coin-instruction kbd {
+  background: #2b0c16;
+  padding: 2px 8px;
+  border: 1px solid #ff113a;
+  border-radius: 4px;
+  color: #ff9900;
+}
+
+/* Violent Arcade Glitch Effect */
+.arcade-violent-glitch {
+  animation: violentGlitch 0.7s steps(2, start) forwards;
+}
+
+@keyframes violentGlitch {
+  0% { transform: translate(0, 0) skew(0); filter: hue-rotate(0deg); }
+  10% { transform: translate(-15px, 8px) skew(-5deg); filter: invert(0.8) hue-rotate(90deg); }
+  25% { transform: translate(12px, -10px) skew(7deg); filter: contrast(3); }
+  45% { transform: translate(-8px, -12px) skew(-10deg); filter: saturate(4) hue-rotate(180deg); }
+  65% { transform: translate(18px, 6px) skew(12deg); filter: invert(1); }
+  85% { transform: translate(-4px, 4px) skew(-2deg); filter: contrast(2.5); }
+  100% { transform: translate(0, 0) scale(1.1); filter: brightness(2); }
+}
+
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 
+      0 0 10px #ff113a,
+      0 0 20px #ff113a,
+      0 0 35px #ff113a;
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+    opacity: 0.45;
+  }
+}
+
+@keyframes pulseAvatar {
+  0%, 100% { box-shadow: 0 0 15px #ff113a; }
+  50% { box-shadow: 0 0 35px #ff113a, 0 0 50px rgba(255, 153, 0, 0.6); }
+}
+
+/* ==========================================================================
+   2. MAIN PORTFOLIO SHELL & RETRO NAVIGATION
+   ========================================================================== */
+#main-portfolio {
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+#main-portfolio.portfolio-hidden {
+  opacity: 0;
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
+}
+
+#main-portfolio.portfolio-revealed {
+  opacity: 1;
+  pointer-events: auto;
+  height: auto;
+}
+
+.hawkins-nav-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background: rgba(8, 3, 5, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 2px solid rgba(255, 17, 58, 0.3);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(16px, 4vw, 48px);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-title {
+  font-family: var(--font-hawkins);
+  font-size: 1.3rem;
+  color: #fff;
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px var(--rsu-red-primary);
+}
+
+.nav-role-badge {
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  background: rgba(255, 17, 58, 0.2);
+  border: 1px solid var(--rsu-red-primary);
+  color: #ff9900;
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-link {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: #e2e8f0;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--rsu-red-primary);
+  text-shadow: 0 0 10px var(--rsu-red-primary);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-pill-btn {
+  background: #17070c;
+  border: 1px solid rgba(255, 17, 58, 0.4);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-pill-btn:hover {
+  background: var(--rsu-red-primary);
+  box-shadow: 0 0 15px var(--rsu-red-primary);
+}
+
+/* ==========================================================================
+   3. THE HERO: THE SPLIT-SCREEN ILLUSION
+   ========================================================================== */
+.split-hero-container {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  margin-top: 0;
+  display: flex;
+  overflow: hidden;
+  border-bottom: 3px solid #ff113a;
+}
+
+/* Left Half: The Right Side Up */
+.dimension-side {
+  position: relative;
+  height: 100vh;
+  overflow-y: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--header-height) + 20px) 4vw 40px;
+}
+
+#side-right-side-up {
+  width: var(--split-percent);
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(255, 17, 58, 0.12) 0%, transparent 60%),
+    linear-gradient(135deg, #100307 0%, #050102 100%);
+  border-right: 2px solid transparent;
+  transition: width 0.05s ease-out;
+}
+
+/* Right Half: The Upside Down */
+#side-upside-down {
+  width: calc(100% - var(--split-percent));
+  background: 
+    radial-gradient(circle at 70% 40%, rgba(56, 189, 248, 0.1) 0%, transparent 65%),
+    linear-gradient(135deg, #02070c 0%, #010305 100%);
+  transition: width 0.05s ease-out;
+}
+
+/* Center Interactive Split Divider */
+.split-divider {
+  position: absolute;
+  top: 0;
+  left: var(--split-percent);
+  width: 14px;
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: 50;
+  cursor: ew-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.split-line {
+  position: absolute;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, #ff113a 0%, #ff9900 40%, #38bdf8 70%, #0284c7 100%);
+  box-shadow: 0 0 15px rgba(255, 17, 58, 0.8), 0 0 20px rgba(56, 189, 248, 0.8);
+}
+
+.split-handle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #0d0408;
+  border: 2px solid #ff113a;
+  box-shadow: 0 0 20px #ff113a, 0 0 25px #38bdf8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: #fff;
+  z-index: 2;
+  user-select: none;
+}
+
+/* Dimension Content Styling */
+.hero-dimension-content {
+  max-width: 560px;
+  width: 100%;
+  transition: transform 0.15s ease-out;
+}
+
+.dimension-header-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+#side-right-side-up .dimension-header-tag {
+  background: rgba(255, 17, 58, 0.15);
+  border: 1px solid var(--rsu-red-primary);
+  color: #ff9900;
+}
+
+#side-upside-down .dimension-header-tag {
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid var(--ud-cyan-primary);
+  color: var(--ud-cyan-primary);
+}
+
+.hero-main-title {
+  font-family: var(--font-hawkins);
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  line-height: 1.15;
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+}
+
+#side-right-side-up .hero-main-title {
+  color: #fff;
+  text-shadow: 
+    0 0 10px var(--rsu-red-primary),
+    0 0 25px var(--rsu-red-primary),
+    0 0 45px rgba(255, 17, 58, 0.7);
+  animation: neonFlicker 4s infinite alternate;
+}
+
+#side-upside-down .hero-main-title {
+  color: #bae6fd;
+  text-shadow: 
+    0 0 12px var(--ud-cyan-primary),
+    0 0 30px rgba(56, 189, 248, 0.6);
+  font-family: var(--font-hawkins);
+  letter-spacing: 4px;
+  position: relative;
+}
+
+.hero-subhead {
+  font-family: var(--font-crt);
+  font-size: 1.6rem;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+
+#side-right-side-up .hero-subhead {
+  color: #fca5a5;
+}
+
+#side-upside-down .hero-subhead {
+  color: #7dd3fc;
+}
+
+.hero-bio-lead {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+#side-right-side-up .hero-bio-lead {
+  color: var(--rsu-text);
+}
+
+#side-upside-down .hero-bio-lead {
+  color: var(--ud-text);
+  font-style: italic;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cta-button {
+  font-family: var(--font-pixel);
+  font-size: 0.72rem;
+  padding: 14px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cta-button-red {
+  background: linear-gradient(180deg, #ff113a 0%, #c40929 100%);
+  color: #fff;
+  border: 2px solid #ffd4dc;
+  box-shadow: 0 0 20px rgba(255, 17, 58, 0.6);
+}
+
+.cta-button-red:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(255, 17, 58, 0.9);
+}
+
+.cta-button-cyan {
+  background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+  color: #fff;
+  border: 2px solid #bae6fd;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+}
+
+.cta-button-cyan:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.8);
+}
+
+.cta-button-ghost {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid currentColor;
+  color: #e2e8f0;
+}
+
+.cta-button-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Quick Dimension Selector Tabs */
+.dimension-selector-bar {
+  display: flex;
+  justify-content: center;
+  background: #090306;
+  border-bottom: 1px solid rgba(255, 17, 58, 0.3);
+  padding: 10px;
+  gap: 12px;
+  position: relative;
+  z-index: 20;
+}
+
+.dim-tab-btn {
+  background: #15060b;
+  border: 1px solid rgba(255, 17, 58, 0.3);
+  color: #cbd5e1;
+  font-family: var(--font-pixel);
+  font-size: 0.62rem;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dim-tab-btn.active, .dim-tab-btn:hover {
+  background: var(--rsu-red-primary);
+  color: #fff;
+  box-shadow: 0 0 15px var(--rsu-red-primary);
+}
+
+/* ==========================================================================
+   4. SECTION 1: THE D&D CAMPAIGN SCREEN (ABOUT ME)
+   ========================================================================== */
+.dnd-campaign-section {
+  position: relative;
+  padding: 90px clamp(16px, 5vw, 60px);
+  background: 
+    radial-gradient(circle at 50% 30%, rgba(255, 153, 0, 0.08) 0%, transparent 70%),
+    linear-gradient(180deg, #120609 0%, #1f0f08 50%, #0d0503 100%);
+  border-bottom: 3px solid #ff9900;
+  z-index: 20;
+}
+
+.section-retro-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-label {
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  color: var(--arcade-gold);
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.section-main-heading {
+  font-family: var(--font-hawkins);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  color: #fff;
+  letter-spacing: 3px;
+  text-shadow: 0 0 15px rgba(255, 153, 0, 0.6);
+}
+
+.section-subtitle {
+  font-family: var(--font-crt);
+  font-size: 1.4rem;
+  color: #fed7aa;
+  margin-top: 6px;
+}
+
+/* Campaign Tabletop Grid */
+.campaign-table-surface {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 36px;
+  background: #170b07;
+  border: 8px solid #3c1e13;
+  border-radius: 16px;
+  padding: clamp(20px, 3.5vw, 40px);
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.9),
+    inset 0 0 80px rgba(0, 0, 0, 0.85);
+}
+
+/* Left: Polaroid & Interactive D20 Die */
+.dnd-table-artifacts {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: center;
+}
+
+/* Polaroid Photo Card */
+.polaroid-frame {
+  background: #fafafa;
+  padding: 16px 16px 24px;
+  border-radius: 4px;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.7),
+    0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: rotate(-3deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+}
+
+.polaroid-frame:hover {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85);
+}
+
+.polaroid-tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 26px;
+  background: rgba(240, 225, 180, 0.65);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.polaroid-img-container {
+  width: 100%;
+  height: 340px;
+  background: #000;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.polaroid-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+  filter: contrast(1.08) brightness(0.98);
+}
+
+.polaroid-caption {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.92rem;
+  color: #1a1a1a;
+  text-align: center;
+  margin-top: 14px;
+  line-height: 1.4;
+}
+
+.polaroid-controls {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.photo-cycle-btn {
+  background: #2b140d;
+  border: 1px solid #78350f;
+  color: #fbbf24;
+  font-family: var(--font-pixel);
+  font-size: 0.58rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.photo-cycle-btn:hover {
+  background: #ff9900;
+  color: #000;
+}
+
+/* Interactive D20 Rolling Station */
+.d20-rolling-station {
+  width: 100%;
+  background: #110704;
+  border: 2px dashed #78350f;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.d20-station-title {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: #fbbf24;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+.d20-visual-wrapper {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 16px;
+  cursor: pointer;
+}
+
+.d20-die {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #b91c1c 0%, #450a0a 100%);
+  border: 3px solid #fef08a;
+  border-radius: 24%;
+  box-shadow: 
+    0 0 25px rgba(239, 68, 68, 0.7),
+    inset 0 0 15px rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(15deg);
+  transition: transform 0.2s ease;
+}
+
+.d20-die:hover {
+  transform: rotate(0deg) scale(1.08);
+  box-shadow: 0 0 35px rgba(239, 68, 68, 1);
+}
+
+.d20-die.rolling-die {
+  animation: d20Tumble 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes d20Tumble {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(180deg) scale(1.25) translateY(-20px); }
+  50% { transform: rotate(360deg) scale(0.9) translateY(10px); }
+  75% { transform: rotate(540deg) scale(1.15) translateY(-10px); }
+  100% { transform: rotate(720deg) scale(1) translateY(0); }
+}
+
+.d20-number {
+  font-family: var(--font-hawkins);
+  font-size: 2.2rem;
+  color: #fef08a;
+  font-weight: 900;
+  text-shadow: 0 2px 4px #000;
+}
+
+.roll-btn-action {
+  background: linear-gradient(180deg, #d97706 0%, #92400e 100%);
+  border: 2px solid #fef08a;
+  color: #fff;
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.roll-btn-action:hover {
+  background: #f59e0b;
+  transform: translateY(-2px);
+}
+
+/* Unlocked Trait Banner */
+.d20-result-banner {
+  margin-top: 16px;
+  background: #240c06;
+  border: 2px solid #b45309;
+  border-radius: 8px;
+  padding: 14px;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.d20-result-banner.nat-20 {
+  border-color: #fef08a;
+  background: #451a03;
+  box-shadow: 0 0 25px rgba(254, 240, 138, 0.5);
+}
+
+.d20-result-banner.nat-1 {
+  border-color: #ef4444;
+  background: #450a0a;
+}
+
+.trait-header {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: #fef08a;
+  margin-bottom: 6px;
+}
+
+.trait-description {
+  font-size: 0.95rem;
+  color: #fed7aa;
+  line-height: 1.45;
+}
+
+/* Right: Parchment D&D Character Sheet */
+.dnd-character-sheet {
+  background: var(--parchment);
+  color: var(--parchment-ink);
+  border: 4px solid #78350f;
+  border-radius: 8px;
+  padding: clamp(20px, 3vw, 32px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.sheet-header-box {
+  border-bottom: 3px double #78350f;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.sheet-character-name {
+  font-family: var(--font-hawkins);
+  font-size: 2rem;
+  color: #451a03;
+  letter-spacing: 2px;
+}
+
+.sheet-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.sheet-meta-item span {
+  color: #78350f;
+}
+
+/* Attributes / Stats Gauge */
+.stats-container {
+  margin-top: 24px;
+}
+
+.stats-heading {
+  font-family: var(--font-hawkins);
+  font-size: 1.3rem;
+  color: #78350f;
+  margin-bottom: 14px;
+  border-bottom: 2px solid #b45309;
+  padding-bottom: 4px;
+}
+
+.stat-row {
+  margin-bottom: 14px;
+}
+
+.stat-info {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.stat-tag {
+  color: #991b1b;
+}
+
+.stat-gauge-track {
+  width: 100%;
+  height: 14px;
+  background: #e2d3b5;
+  border: 1px solid #78350f;
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.stat-gauge-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #b91c1c 0%, #ea580c 100%);
+  border-radius: 7px;
+  transition: width 1s ease-in-out;
+}
+
+/* Bio Summary Callout */
+.sheet-bio-callout {
+  margin-top: 24px;
+  background: rgba(120, 53, 15, 0.08);
+  border-left: 4px solid #78350f;
+  padding: 14px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   5. SECTION 2: HAWKINS FAMILY VIDEO (PROJECTS VHS RACK)
+   ========================================================================== */
+.family-video-section {
+  position: relative;
+  padding: 100px clamp(16px, 5vw, 60px);
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(255, 17, 58, 0.06) 0%, transparent 70%),
+    linear-gradient(180deg, #090305 0%, #15060c 50%, #060103 100%);
+  border-bottom: 3px solid #ff113a;
+  z-index: 20;
+}
+
+.vhs-store-sign {
+  display: inline-block;
+  background: #110307;
+  border: 3px solid #ff113a;
+  border-radius: 12px;
+  padding: 12px 28px;
+  box-shadow: 0 0 30px rgba(255, 17, 58, 0.5);
+  margin-bottom: 24px;
+}
+
+.vhs-neon-text {
+  font-family: var(--font-hawkins);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  color: #fff;
+  letter-spacing: 4px;
+  text-shadow: 0 0 10px #ff113a, 0 0 25px #ff113a;
+}
+
+/* 3D Tilted VHS Shelf Rack */
+.vhs-shelf-rack {
+  max-width: 1200px;
+  margin: 40px auto;
+  perspective: 1000px;
+}
+
+.vhs-shelf-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 28px;
+  padding: 24px 16px 40px;
+  background: linear-gradient(180deg, rgba(30, 8, 16, 0.6) 0%, rgba(10, 2, 5, 0.95) 100%);
+  border-bottom: 14px solid #2b0b14;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+}
+
+/* Individual VHS Cassette Tape */
+.vhs-tape {
+  position: relative;
+  height: 380px;
+  background: #14050a;
+  border: 2px solid #4a1324;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+  transform: rotateY(-8deg) translateZ(0);
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.vhs-tape:hover {
+  transform: rotateY(0deg) translateZ(40px) scale(1.05) translateY(-14px);
+  border-color: #ff113a;
+  box-shadow: 
+    0 25px 45px rgba(255, 17, 58, 0.5),
+    0 0 20px rgba(255, 17, 58, 0.4);
+}
+
+.vhs-tape.tape-ejected {
+  transform: translateY(120px) scale(0.7) rotateX(45deg);
+  opacity: 0.3;
+}
+
+/* VHS Top Spine Label */
+.vhs-spine-sticker {
+  background: #ffeb3b;
+  color: #1a1a1a;
+  padding: 6px 12px;
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #000;
+}
+
+.vhs-tape-poster {
+  flex: 1;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: radial-gradient(circle at top, rgba(255, 17, 58, 0.25) 0%, rgba(10, 2, 5, 0.95) 85%);
+  position: relative;
+}
+
+.vhs-category-badge {
+  font-family: var(--font-crt);
+  font-size: 1.2rem;
+  color: #fca5a5;
+  letter-spacing: 1px;
+}
+
+.vhs-tape-title {
+  font-family: var(--font-hawkins);
+  font-size: 1.45rem;
+  color: #fff;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 10px #ff113a;
+  margin: 12px 0 8px;
+}
+
+.vhs-tape-logline {
+  font-size: 0.85rem;
+  color: #fce7f3;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.vhs-tech-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.vhs-chip {
+  background: rgba(255, 17, 58, 0.15);
+  border: 1px solid rgba(255, 17, 58, 0.4);
+  color: #fecdd3;
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  padding: 3px 6px;
+  border-radius: 3px;
+}
+
+.vhs-pull-action {
+  margin-top: 14px;
+  background: #ff113a;
+  color: #fff;
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 0 12px rgba(255, 17, 58, 0.6);
+}
+
+/* VCR Player Unit on Screen */
+.vcr-player-deck {
+  max-width: 800px;
+  margin: 40px auto 0;
+  background: #110408;
+  border: 4px solid #2b0b14;
+  border-radius: 12px;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.9),
+    inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.vcr-slot-display {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.vcr-slot-door {
+  width: 280px;
+  height: 28px;
+  background: #000;
+  border: 2px solid #4a1324;
+  border-radius: 4px;
+  position: relative;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.9);
+}
+
+.vcr-slot-door::after {
+  content: '▼ INSERT VHS TAPE ▼';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: #64748b;
+  letter-spacing: 1px;
+}
+
+.vcr-led-screen {
+  background: #021a0f;
+  border: 2px solid #064e3b;
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-family: var(--font-pixel);
+  font-size: 0.75rem;
+  color: var(--vcr-green);
+  text-shadow: 0 0 8px var(--vcr-green-glow);
+  letter-spacing: 2px;
+}
+
+/* Retro CRT TV Modal */
+.crt-tv-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.crt-tv-modal.active {
+  display: flex;
+  animation: crtPowerOn 0.4s ease-out forwards;
+}
+
+@keyframes crtPowerOn {
+  0% { transform: scaleY(0.005) scaleX(0); opacity: 0; }
+  50% { transform: scaleY(0.008) scaleX(1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.crt-tv-housing {
+  max-width: 960px;
+  width: 100%;
+  background: #1c0a06;
+  border: 12px solid #36170d;
+  border-radius: 28px;
+  box-shadow: 
+    0 0 60px rgba(0, 0, 0, 0.95),
+    inset 0 0 40px rgba(0, 0, 0, 0.85);
+  padding: 24px;
+  position: relative;
+}
+
+.crt-screen-frame {
+  background: radial-gradient(circle at center, #0f172a 0%, #020617 90%);
+  border: 4px solid #475569;
+  border-radius: 20px;
+  box-shadow: 
+    inset 0 0 50px rgba(0, 0, 0, 0.95),
+    0 0 25px rgba(56, 189, 248, 0.35);
+  padding: clamp(20px, 3vw, 36px);
+  position: relative;
+  overflow: hidden;
+}
+
+.crt-tracking-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 10px #fff;
+  opacity: 0.6;
+  animation: vhsTracking 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes vhsTracking {
+  0% { top: -10px; }
+  100% { top: 100%; }
+}
+
+.crt-header-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: var(--vcr-green);
+  border-bottom: 2px dashed rgba(52, 211, 153, 0.4);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.crt-title {
+  font-family: var(--font-hawkins);
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  color: #fff;
+  letter-spacing: 2px;
+  text-shadow: 0 0 12px var(--rsu-red-primary);
+  margin-bottom: 8px;
+}
+
+.crt-category {
+  font-family: var(--font-crt);
+  font-size: 1.4rem;
+  color: #38bdf8;
+  margin-bottom: 16px;
+}
+
+.crt-screen-demo {
+  margin: 20px 0;
+  background: #020617;
+  border: 2px solid #1e293b;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.crt-sim-box {
+  width: 100%;
+}
+
+.cv-radar-header {
+  font-family: var(--font-pixel);
+  font-size: 0.62rem;
+  color: #38bdf8;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.radar-dot {
+  width: 8px;
+  height: 8px;
+  background: #38bdf8;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #38bdf8;
+  animation: pulseAvatar 1.5s infinite;
+}
+
+.cv-bounding-container {
+  height: 180px;
+  border: 1px dashed rgba(56, 189, 248, 0.4);
+  border-radius: 6px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.cv-target-box {
+  border: 2px solid #ef4444;
+  padding: 14px 20px;
+  background: rgba(239, 68, 68, 0.15);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+}
+
+.cv-target-label {
+  font-family: var(--font-pixel);
+  font-size: 0.62rem;
+  color: #fef08a;
+}
+
+.cv-telemetry-row {
+  position: absolute;
+  bottom: 8px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-crt);
+  font-size: 1.15rem;
+  color: #94a3b8;
+}
+
+/* Predictor Chart Simulation */
+.predictor-chart-mock {
+  padding: 12px 0;
+}
+
+.chart-bars {
+  height: 140px;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  border-bottom: 2px solid #334155;
+  padding-bottom: 6px;
+}
+
+.bar {
+  flex: 1;
+  background: #38bdf8;
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+  position: relative;
+}
+
+.bar.alert-bar {
+  background: #ff113a;
+  box-shadow: 0 0 15px #ff113a;
+}
+
+.bar.alert-bar .bar-pulse {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: #ff113a;
+}
+
+.chart-legend {
+  font-family: var(--font-crt);
+  font-size: 1.15rem;
+  color: #94a3b8;
+  margin-top: 10px;
+}
+
+.highlight-warn { color: #ff113a; }
+.highlight-cyan { color: #38bdf8; }
+
+/* CRT Body Text & Chips */
+.crt-tagline {
+  font-family: var(--font-crt);
+  font-size: 1.35rem;
+  color: #fef08a;
+  margin-bottom: 8px;
+}
+
+.crt-body {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin-bottom: 16px;
+}
+
+.crt-tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.crt-chip {
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #bae6fd;
+  font-family: var(--font-pixel);
+  font-size: 0.58rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.crt-actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px dashed rgba(148, 163, 184, 0.3);
+  padding-top: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.crt-close-btn {
+  background: #dc2626;
+  border: 2px solid #fecaca;
+  color: #fff;
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.crt-ext-link {
+  background: #0284c7;
+  border: 2px solid #bae6fd;
+  color: #fff;
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  padding: 10px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   6. SECTION 3: JOYCE'S CHRISTMAS LIGHTS ALPHABET CIPHER (CONTACT ME)
+   ========================================================================== */
+.christmas-lights-section {
+  position: relative;
+  padding: 100px clamp(16px, 5vw, 60px);
+  background: 
+    radial-gradient(circle at 50% 40%, rgba(255, 17, 58, 0.1) 0%, transparent 60%),
+    linear-gradient(180deg, #120408 0%, #1c080f 50%, #0a0104 100%);
+  border-bottom: 3px solid #ff113a;
+  z-index: 20;
+}
+
+.contact-layout-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Joyce's Wallpaper Wall */
+.joyce-alphabet-wall-container {
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(60, 20, 10, 0.25) 0px,
+      rgba(60, 20, 10, 0.25) 2px,
+      transparent 2px,
+      transparent 40px
+    ),
+    radial-gradient(circle at center, #2e1710 0%, #150906 100%);
+  border: 8px solid #3c1a0e;
+  border-radius: 16px;
+  padding: clamp(24px, 4vw, 44px) 20px;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.95),
+    inset 0 0 70px rgba(0, 0, 0, 0.85);
+  position: relative;
+}
+
+.alphabet-wall {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.cipher-row {
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  padding-top: 14px;
+}
+
+.cipher-letter-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Christmas Light Bulb */
+.light-wire {
+  position: absolute;
+  top: -14px;
+  left: -20px;
+  right: -20px;
+  height: 12px;
+  border-bottom: 2px solid #1c2b18;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.light-bulb {
+  width: 18px;
+  height: 26px;
+  background: var(--bulb-color, #ff3b30);
+  border-radius: 50% 50% 40% 40%;
+  position: relative;
+  box-shadow: 
+    0 0 6px var(--bulb-color, #ff3b30),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+  opacity: 0.35;
+  transition: opacity 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.light-bulb::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 5px;
+  background: #27272a;
+  border-radius: 2px;
+}
+
+/* Active / Lit Bulb State */
+.light-bulb.lit {
+  opacity: 1;
+  transform: scale(1.4);
+  box-shadow: 
+    0 0 20px var(--bulb-color),
+    0 0 45px var(--bulb-color),
+    0 0 65px #fff;
+}
+
+/* Creepy Hand-Painted Letter */
+.painted-letter {
+  font-family: var(--font-hawkins);
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  color: #17100b;
+  font-weight: 900;
+  text-shadow: 
+    1px 1px 0px rgba(255, 255, 255, 0.15),
+    -1px -1px 0px #000;
+  margin-top: 8px;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+
+.light-bulb.lit + .painted-letter {
+  color: #fff;
+  text-shadow: 0 0 15px var(--bulb-color);
+}
+
+/* Easter Egg Secret Word Buttons */
+.cipher-easter-eggs {
+  margin-top: 28px;
+  border-top: 2px dashed rgba(120, 53, 15, 0.4);
+  padding-top: 16px;
+  text-align: center;
+}
+
+.easter-egg-title {
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  color: #fbbf24;
+  margin-bottom: 10px;
+}
+
+.easter-egg-tags {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cipher-code-tag {
+  background: #1b0a05;
+  border: 1px solid #78350f;
+  color: #fed7aa;
+  font-family: var(--font-pixel);
+  font-size: 0.58rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cipher-code-tag:hover, .cipher-code-tag.active {
+  background: #b91c1c;
+  color: #fff;
+  box-shadow: 0 0 12px #b91c1c;
+}
+
+/* Walkie-Talkie Contact Box */
+.walkie-talkie-box {
+  background: #14050a;
+  border: 6px solid #3d0c1b;
+  border-radius: 16px;
+  padding: 28px 24px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9);
+  position: relative;
+}
+
+.walkie-antenna {
+  position: absolute;
+  top: -45px;
+  right: 32px;
+  width: 10px;
+  height: 50px;
+  background: linear-gradient(90deg, #64748b 0%, #334155 100%);
+  border-radius: 5px 5px 0 0;
+  border: 1px solid #1e293b;
+}
+
+.walkie-header {
+  border-bottom: 2px solid rgba(255, 17, 58, 0.3);
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+}
+
+.walkie-title {
+  font-family: var(--font-hawkins);
+  font-size: 1.5rem;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.walkie-frequency {
+  font-family: var(--font-crt);
+  font-size: 1.25rem;
+  color: #ff9900;
+}
+
+.form-field-group {
+  margin-bottom: 16px;
+}
+
+.form-field-group label {
+  display: block;
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  color: #fca5a5;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.walkie-input, .walkie-textarea {
+  width: 100%;
+  background: #090204;
+  border: 2px solid #501325;
+  border-radius: 6px;
+  padding: 12px 14px;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.walkie-input:focus, .walkie-textarea:focus {
+  outline: none;
+  border-color: #ff113a;
+  box-shadow: 0 0 15px rgba(255, 17, 58, 0.5);
+}
+
+.walkie-transmit-btn {
+  width: 100%;
+  background: linear-gradient(180deg, #ff113a 0%, #9f0722 100%);
+  border: 2px solid #fecdd3;
+  color: #fff;
+  font-family: var(--font-pixel);
+  font-size: 0.8rem;
+  padding: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 0 25px rgba(255, 17, 58, 0.7);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.walkie-transmit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px rgba(255, 17, 58, 0.95);
+}
+
+/* Void Transmission Banner */
+.transmission-status {
+  display: none;
+  margin-top: 20px;
+}
+
+.transmission-status.active {
+  display: block;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.void-alert {
+  background: #2b0813;
+  border: 2px solid #ff113a;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(255, 17, 58, 0.6);
+}
+
+.demogorgon-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.void-alert h3 {
+  font-family: var(--font-hawkins);
+  font-size: 1.3rem;
+  color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+.void-alert p {
+  font-size: 0.9rem;
+  color: #fecdd3;
+  margin-bottom: 12px;
+}
+
+.direct-contact-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.action-btn-primary {
+  background: #ff113a;
+  color: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  text-decoration: none;
+}
+
+.action-btn-secondary {
+  background: #17070c;
+  border: 1px solid #ff113a;
+  color: #ff9900;
+  padding: 10px;
+  border-radius: 6px;
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  cursor: pointer;
+}
+
+/* Real Direct Contact Details Card */
+.direct-info-card {
+  margin-top: 24px;
+  background: #0d0307;
+  border: 1px dashed rgba(255, 17, 58, 0.4);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.direct-info-card h4 {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: #fbbf24;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.direct-contact-list {
+  list-style: none;
+  font-size: 0.88rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.direct-contact-list a {
+  color: #38bdf8;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.direct-contact-list a:hover {
+  color: #ff113a;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   7. FLOATING RETRO CASSETTE PLAYER (AUDIO HUD)
+   ========================================================================== */
+.cassette-widget-wrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 500;
+}
+
+.cassette-deck {
+  background: #18060e;
+  border: 3px solid #ff113a;
+  border-radius: 12px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(255, 17, 58, 0.4);
+}
+
+.cassette-spools {
+  display: flex;
+  gap: 8px;
+  background: #090204;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #4a1324;
+}
+
+.cassette-spool {
+  width: 16px;
+  height: 16px;
+  border: 2px dashed #94a3b8;
+  border-radius: 50%;
+}
+
+.cassette-deck.playing .cassette-spool {
+  animation: spinSpool 2s linear infinite;
+  border-color: #ff113a;
+}
+
+@keyframes spinSpool {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.cassette-track-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.cassette-title {
+  font-family: var(--font-pixel);
+  font-size: 0.58rem;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.cassette-status {
+  font-family: var(--font-crt);
+  font-size: 1.15rem;
+  color: #ff9900;
+}
+
+.cassette-btn {
+  background: #ff113a;
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  box-shadow: 0 0 10px #ff113a;
+  transition: transform 0.15s;
+}
+
+.cassette-btn:hover {
+  transform: scale(1.1);
+}
+
+/* ==========================================================================
+   8. FOOTER & POLISH
+   ========================================================================== */
+.hawkins-footer {
+  background: #040102;
+  border-top: 2px solid #2d0b14;
+  padding: 40px clamp(16px, 5vw, 60px);
+  text-align: center;
+}
+
+.footer-quote {
+  font-family: var(--font-hawkins);
+  font-size: 1.2rem;
+  color: #fca5a5;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.footer-copy {
+  font-family: var(--font-pixel);
+  font-size: 0.58rem;
+  color: #64748b;
+  letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   9. RESPONSIVE QUERIES
+   ========================================================================== */
+@media (max-width: 960px) {
+  :root {
+    --split-percent: 50%;
+  }
+
+  .split-hero-container {
+    flex-direction: column;
+    height: auto;
+    min-height: auto;
+  }
+
+  #side-right-side-up, #side-upside-down {
+    width: 100% !important;
+    height: auto;
+    padding: calc(var(--header-height) + 20px) 20px 50px;
+  }
+
+  .split-divider {
+    display: none;
+  }
+
+  .campaign-table-surface {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-layout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-links {
+    display: none;
+  }
+}

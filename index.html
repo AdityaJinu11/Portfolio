@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aditya Jinu | AI/ML Engineer & Creative Technologist | Hawkins '84</title>
+  <meta name="description" content="Portfolio of Aditya Jinu, 1st Year B.Tech CSE (AI/ML) Student at Newton School of Technology x ADYPU Pune. Turning complex data into intelligent solutions.">
+  <meta name="author" content="Aditya Jinu">
+  <meta name="keywords" content="Aditya Jinu, AI, Machine Learning, Deep Learning, Python, Portfolio, Stranger Things, Hawkins, Upside Down, BTech CSE">
+  <meta property="og:title" content="Aditya Jinu | AI/ML Engineer Portfolio">
+  <meta property="og:description" content="Turning complex data into intelligent solutions. Interactive Hawkins 1984 / The Upside Down experience.">
+  <meta property="og:type" content="website">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕹️</text></svg>">
+</head>
+<body>
+
+  <!-- Floating Particles Canvas (Dual-Dimension Shader) -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- CRT Scanlines Screen Overlay -->
+  <div class="crt-scanlines"></div>
+
+  <!-- =========================================================================
+       1. THE HOOK: "INSERT COIN" HAWKINS ARCADE INTRO SCREEN
+       ========================================================================= -->
+  <div id="arcade-screen" class="arcade-loading-screen">
+    <div class="arcade-cabinet">
+      <div class="arcade-bezel">
+        <header class="arcade-header-marque">
+          <span class="arcade-badge">★ HAWKINS PALACE ARCADE 1984 ★</span>
+          <h1 class="arcade-title">ADITYA JINU</h1>
+          <p class="arcade-marquee-sub">AI / ML SORCERER • LEVEL 1 ADVENTURER</p>
+        </header>
+
+        <div class="arcade-monitor-screen">
+          <div class="score-board">
+            <div class="score-col">
+              <span>PLAYER 1</span>
+              <div class="score-val">ADITYA</div>
+            </div>
+            <div class="score-col">
+              <span>HIGH SCORE</span>
+              <div class="score-val">198420 PTS</div>
+            </div>
+            <div class="score-col">
+              <span>INSTITUTION</span>
+              <div class="score-val">NST x ADYPU</div>
+            </div>
+          </div>
+
+          <div class="arcade-character-showcase">
+            <div class="arcade-avatar-wrapper">
+              <img src="assets/images/aditya-profile.jpg" alt="Aditya Jinu - Profile" class="arcade-avatar">
+            </div>
+            <h2 class="arcade-player-name">Aditya Jinu</h2>
+            <p class="arcade-player-role">Aspiring AI/ML Engineer | B.Tech CSE</p>
+            <p class="arcade-player-guild">NEWTON SCHOOL OF TECHNOLOGY x ADYPU PUNE</p>
+          </div>
+
+          <div class="coin-slot-section">
+            <button id="insert-coin-btn" class="insert-coin-button" type="button" aria-label="Insert Coin to Start">
+              <span class="coin-icon">🪙</span> INSERT COIN TO CONTINUE
+            </button>
+            <p class="coin-instruction">PRESS <kbd>ENTER</kbd> OR <kbd>SPACE</kbd> TO ENTER HAWKINS</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MAIN PORTFOLIO EXPERIENCE (Revealed after Arcade Glitch)
+       ========================================================================= -->
+  <main id="main-portfolio" class="portfolio-hidden">
+
+    <!-- Top Retro Nav Bar -->
+    <header class="hawkins-nav-header">
+      <div class="nav-brand">
+        <span class="nav-title">ADITYA JINU</span>
+        <span class="nav-role-badge">AI/ML '84</span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#hero" class="nav-link">DIMENSIONS</a>
+        <a href="#about" class="nav-link">D&D STATS</a>
+        <a href="#projects" class="nav-link">FAMILY VIDEO</a>
+        <a href="#contact" class="nav-link">CIPHER WALL</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="replay-arcade-btn" class="nav-pill-btn" type="button">🕹️ ARCADE</button>
+        <button id="mute-all-btn" class="nav-pill-btn" type="button">🔊 AUDIO</button>
+      </div>
+    </header>
+
+    <!-- Quick Dimension Switcher Bar -->
+    <div class="dimension-selector-bar">
+      <button class="dim-tab-btn" data-dimension="rightside" type="button">🔴 THE RIGHT SIDE UP</button>
+      <button class="dim-tab-btn active" data-dimension="split" type="button">⚡ SPLIT DIMENSION</button>
+      <button class="dim-tab-btn" data-dimension="upsidedown" type="button">🔵 THE UPSIDE DOWN</button>
+    </div>
+
+    <!-- =========================================================================
+         2. THE HERO: THE VERTICAL SPLIT-SCREEN ILLUSION
+         ========================================================================= -->
+    <section id="hero" class="split-hero-container mode-split">
+      
+      <!-- LEFT SIDE: THE RIGHT SIDE UP -->
+      <div id="side-right-side-up" class="dimension-side">
+        <div class="hero-dimension-content">
+          <div class="dimension-header-tag">
+            <span class="tag-pulse"></span> THE RIGHT SIDE UP • HAWKINS REALM
+          </div>
+          <h1 class="hero-main-title">ADITYA JINU</h1>
+          <p class="hero-subhead">Aspiring AI/ML Engineer | B.Tech CSE Student</p>
+          <p class="hero-bio-lead">
+            Turning complex data into intelligent solutions. Deeply passionate about coding, continuous learning, and building the future of technology. My journey in tech is driven by an intense curiosity to understand how algorithms solve real-world problems.
+          </p>
+          <div class="hero-cta-group">
+            <a href="#projects" class="cta-button cta-button-red">📼 BROWSE VHS TAPES</a>
+            <a href="#contact" class="cta-button cta-button-ghost">📞 CALL TRANSMISSION</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER INTERACTIVE SLIDER DIVIDER -->
+      <div id="split-divider" class="split-divider" title="Drag to reveal either dimension">
+        <div class="split-line"></div>
+        <div class="split-handle">⚡</div>
+      </div>
+
+      <!-- RIGHT SIDE: THE UPSIDE DOWN -->
+      <div id="side-upside-down" class="dimension-side">
+        <div class="hero-dimension-content">
+          <div class="dimension-header-tag">
+            <span class="tag-pulse"></span> THE UPSIDE DOWN • THE SHADOW REALM
+          </div>
+          <h2 class="hero-main-title">ADITYA JINU</h2>
+          <p class="hero-subhead">The Dimension Weaver | Algorithm Architect</p>
+          <p class="hero-bio-lead">
+            An absolute monster at turning raw data into high-performance neural networks. As technology evolves rapidly, I thrive on adapting, mastering new frameworks, and consistently upgrading my skill set to conquer the unknown.
+          </p>
+          <div class="hero-cta-group">
+            <a href="#about" class="cta-button cta-button-cyan">🎲 ROLL D20 DIE</a>
+            <a href="https://github.com/AdityaJinu11" target="_blank" rel="noopener noreferrer" class="cta-button cta-button-ghost">👾 GITHUB VAULT</a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         3. SECTION 1: THE D&D CHARACTER STAT SELECTOR (ABOUT ME)
+         ========================================================================= -->
+    <section id="about" class="dnd-campaign-section">
+      <div class="section-retro-header">
+        <span class="section-label">CAMPAIGN LOG: 1984 HAWKINS AV CLUB</span>
+        <h2 class="section-main-heading">CHARACTER STAT SELECTOR</h2>
+        <p class="section-subtitle">D&D Campaign Table • Roll for Initiative & Adaptability</p>
+      </div>
+
+      <div class="campaign-table-surface">
+        
+        <!-- Left Column: Polaroid Snapshots & Interactive D20 Die -->
+        <div class="dnd-table-artifacts">
+          
+          <!-- Polaroid Photo Frame (Aditya's real uploaded photos!) -->
+          <div class="polaroid-frame">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-img-container">
+              <img id="polaroid-img" src="assets/images/aditya-profile.jpg" alt="Aditya Jinu - Portrait">
+            </div>
+            <div id="polaroid-caption" class="polaroid-caption">
+              <strong>Aditya Jinu (Field Profile '84)</strong><br>
+              <span>1st Year B.Tech CSE (AI/ML) • Ready for the unknown</span>
+            </div>
+            <div class="polaroid-controls">
+              <button id="photo-prev" class="photo-cycle-btn" type="button">◀ PREV SNAP</button>
+              <button id="photo-next" class="photo-cycle-btn" type="button">NEXT SNAP ▶</button>
+            </div>
+          </div>
+
+          <!-- Interactive 3D D20 Die Rolling Station -->
+          <div class="d20-rolling-station">
+            <div class="d20-station-title">🎲 20-SIDED DIE OF DESTINY</div>
+            
+            <div class="d20-visual-wrapper">
+              <div id="d20-die" class="d20-die" title="Click to Roll!">
+                <span id="d20-number" class="d20-number">20</span>
+              </div>
+            </div>
+
+            <button id="roll-d20-btn" class="roll-btn-action" type="button">
+              ROLL FOR ATTRIBUTES (<span id="roll-count">Rolls: 0</span>)
+            </button>
+
+            <!-- Trait Result Display -->
+            <div id="d20-result" class="d20-result-banner nat-20">
+              <div class="trait-header">NATURAL 20! CRITICAL HIT ⚔️</div>
+              <div id="d20-trait-text" class="trait-description">
+                Trained a complex Deep Learning model with zero overfitting and 99.4% test accuracy on first convergence! The Demogorgon surrendered.
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Right Column: Parchment Character Sheet -->
+        <div class="dnd-character-sheet">
+          <div class="sheet-header-box">
+            <h3 class="sheet-character-name">ADITYA JINU</h3>
+            <div class="sheet-meta-grid">
+              <div class="sheet-meta-item"><span>CLASS:</span> AI/ML Sorcerer</div>
+              <div class="sheet-meta-item"><span>LEVEL:</span> 1st Year B.Tech CSE</div>
+              <div class="sheet-meta-item"><span>GUILD:</span> NST x ADYPU Pune</div>
+              <div class="sheet-meta-item"><span>ALIGNMENT:</span> Chaotic Curious</div>
+            </div>
+          </div>
+
+          <!-- Core Attributes As Technical Skills -->
+          <div class="stats-container">
+            <h4 class="stats-heading">CORE ATTRIBUTES (SKILL PROFICIENCIES)</h4>
+
+            <!-- Strength: Backend & Systems -->
+            <div class="stat-row">
+              <div class="stat-info">
+                <span>STR — BACKEND & SYSTEMS (Python, C++, Node.js, APIs)</span>
+                <span class="stat-tag">88 / 100</span>
+              </div>
+              <div class="stat-gauge-track">
+                <div class="stat-gauge-fill" style="width: 88%;"></div>
+              </div>
+            </div>
+
+            <!-- Dexterity: UI Animation & Frontend -->
+            <div class="stat-row">
+              <div class="stat-info">
+                <span>DEX — UI ANIMATION & FRONTEND (HTML5, Modern CSS, Web Audio)</span>
+                <span class="stat-tag">92 / 100</span>
+              </div>
+              <div class="stat-gauge-track">
+                <div class="stat-gauge-fill" style="width: 92%;"></div>
+              </div>
+            </div>
+
+            <!-- Constitution: Hackathon Stamina & Debugging -->
+            <div class="stat-row">
+              <div class="stat-info">
+                <span>CON — HACKATHON STAMINA & DEEP DEBUGGING</span>
+                <span class="stat-tag">95 / 100</span>
+              </div>
+              <div class="stat-gauge-track">
+                <div class="stat-gauge-fill" style="width: 95%;"></div>
+              </div>
+            </div>
+
+            <!-- Intelligence: AI/ML & Math -->
+            <div class="stat-row">
+              <div class="stat-info">
+                <span>INT — AI / MACHINE LEARNING (PyTorch, Deep Learning, Math)</span>
+                <span class="stat-tag">94 / 100</span>
+              </div>
+              <div class="stat-gauge-track">
+                <div class="stat-gauge-fill" style="width: 94%;"></div>
+              </div>
+            </div>
+
+            <!-- Wisdom: Clean Code & Architecture -->
+            <div class="stat-row">
+              <div class="stat-info">
+                <span>WIS — ARCHITECTURE & DATA STRUCTURES (OOP, Git)</span>
+                <span class="stat-tag">90 / 100</span>
+              </div>
+              <div class="stat-gauge-track">
+                <div class="stat-gauge-fill" style="width: 90%;"></div>
+              </div>
+            </div>
+
+            <!-- Charisma: Curiosity & Communication -->
+            <div class="stat-row">
+              <div class="stat-info">
+                <span>CHA — ADAPTABILITY & TECH COMMUNITY COLLABORATION</span>
+                <span class="stat-tag">96 / 100</span>
+              </div>
+              <div class="stat-gauge-track">
+                <div class="stat-gauge-fill" style="width: 96%;"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bio Callout -->
+          <div class="sheet-bio-callout">
+            "My journey in tech is driven by an intense curiosity to understand how algorithms solve real-world problems. As technology evolves rapidly, I thrive on adapting, learning new frameworks, and consistently upgrading my skill set."
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         4. SECTION 2: THE VIDEO RENTAL STORE (PROJECTS VHS RACK)
+         ========================================================================= -->
+    <section id="projects" class="family-video-section">
+      <div class="section-retro-header">
+        <div class="vhs-store-sign">
+          <span class="vhs-neon-text">FAMILY VIDEO</span>
+        </div>
+        <p class="section-subtitle">Hawkins Rental Rack • Select a VHS Tape to Insert into VCR</p>
+      </div>
+
+      <!-- 3D VHS Cassette Shelf -->
+      <div class="vhs-shelf-rack">
+        <div class="vhs-shelf-row">
+
+          <!-- Tape 1: Neural Cipher -->
+          <article class="vhs-tape" data-project="neural-cipher" tabindex="0" role="button" aria-label="Select Neural Cipher Tape">
+            <div class="vhs-spine-sticker">
+              <span>VOL. 1 • [AI-CV]</span>
+              <span>BE KIND REWIND</span>
+            </div>
+            <div class="vhs-tape-poster">
+              <span class="vhs-category-badge">COMPUTER VISION</span>
+              <h3 class="vhs-tape-title">NEURAL CIPHER</h3>
+              <p class="vhs-tape-logline">High-accuracy real-time feature extraction and classification under severe noise and distortion.</p>
+              <div class="vhs-tech-chips">
+                <span class="vhs-chip">PyTorch</span>
+                <span class="vhs-chip">OpenCV</span>
+                <span class="vhs-chip">Python</span>
+                <span class="vhs-chip">FastAPI</span>
+              </div>
+              <div class="vhs-pull-action">▶ PULL TAPE OFF SHELF</div>
+            </div>
+          </article>
+
+          <!-- Tape 2: Hawkins Predictor -->
+          <article class="vhs-tape" data-project="hawkins-predictor" tabindex="0" role="button" aria-label="Select Hawkins Predictor Tape">
+            <div class="vhs-spine-sticker">
+              <span>VOL. 2 • [ML-PRED]</span>
+              <span>STAFF PICK</span>
+            </div>
+            <div class="vhs-tape-poster">
+              <span class="vhs-category-badge">PREDICTIVE ANALYTICS</span>
+              <h3 class="vhs-tape-title">HAWKINS PREDICTOR</h3>
+              <p class="vhs-tape-logline">Turning multidimensional time-series and sensor telemetry into actionable predictive anomaly indicators.</p>
+              <div class="vhs-tech-chips">
+                <span class="vhs-chip">Scikit-Learn</span>
+                <span class="vhs-chip">Pandas</span>
+                <span class="vhs-chip">NumPy</span>
+                <span class="vhs-chip">Streamlit</span>
+              </div>
+              <div class="vhs-pull-action">▶ PULL TAPE OFF SHELF</div>
+            </div>
+          </article>
+
+          <!-- Tape 3: Algo-Arcade -->
+          <article class="vhs-tape" data-project="algo-arcade" tabindex="0" role="button" aria-label="Select Algo Arcade Tape">
+            <div class="vhs-spine-sticker">
+              <span>VOL. 3 • [DSA-VIZ]</span>
+              <span>TOP RATED</span>
+            </div>
+            <div class="vhs-tape-poster">
+              <span class="vhs-category-badge">CORE SYSTEMS</span>
+              <h3 class="vhs-tape-title">ALGO-ARCADE</h3>
+              <p class="vhs-tape-logline">Interactive visual simulation of graph traversals (A*, Dijkstra) and sorting mechanics with live metrics.</p>
+              <div class="vhs-tech-chips">
+                <span class="vhs-chip">JavaScript</span>
+                <span class="vhs-chip">Canvas 2D</span>
+                <span class="vhs-chip">Data Structures</span>
+              </div>
+              <div class="vhs-pull-action">▶ PULL TAPE OFF SHELF</div>
+            </div>
+          </article>
+
+          <!-- Tape 4: Synth-Mind -->
+          <article class="vhs-tape" data-project="synth-mind" tabindex="0" role="button" aria-label="Select Synth Mind Tape">
+            <div class="vhs-spine-sticker">
+              <span>VOL. 4 • [GEN-AI]</span>
+              <span>CLASSIFIED</span>
+            </div>
+            <div class="vhs-tape-poster">
+              <span class="vhs-category-badge">GENERATIVE AI</span>
+              <h3 class="vhs-tape-title">SYNTH-MIND</h3>
+              <p class="vhs-tape-logline">Multimodal LLM agent pipeline orchestrating tool calling, semantic retrieval, and structured execution.</p>
+              <div class="vhs-tech-chips">
+                <span class="vhs-chip">Python</span>
+                <span class="vhs-chip">LangChain</span>
+                <span class="vhs-chip">Vector DB</span>
+                <span class="vhs-chip">REST APIs</span>
+              </div>
+              <div class="vhs-pull-action">▶ PULL TAPE OFF SHELF</div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Retro VCR Player Unit On Screen -->
+      <div class="vcr-player-deck">
+        <div class="vcr-slot-display">
+          <div id="vcr-slot" class="vcr-slot-door"></div>
+          <div id="vcr-display-status" class="vcr-led-screen">READY • SELECT TAPE</div>
+        </div>
+        <div class="vcr-model-label">
+          <span>HAWKINS HI-FI STEREO VCR • 4-HEAD</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         POPUP MODAL: RETRO CRT TELEVISION (CASE STUDY & TELEMETRY DISPLAY)
+         ========================================================================= -->
+    <div id="crt-tv-modal" class="crt-tv-modal" role="dialog" aria-modal="true" aria-label="CRT Television Project Viewer">
+      <div class="crt-tv-housing">
+        <div class="crt-screen-frame">
+          <div class="crt-tracking-bar"></div>
+
+          <div class="crt-header-status">
+            <span>● VCR PLAYBACK MODE</span>
+            <button id="crt-tracking-btn" class="nav-pill-btn" type="button">TRACKING ADJ</button>
+            <span>TAPE CHANNEL 03</span>
+          </div>
+
+          <h2 id="crt-project-title" class="crt-title">PROJECT TITLE</h2>
+          <div id="crt-project-category" class="crt-category">CATEGORY • RATING</div>
+
+          <!-- Dynamic Simulation Demo Area -->
+          <div id="crt-screen-demo" class="crt-screen-demo"></div>
+
+          <div id="crt-project-desc" class="crt-body-container"></div>
+
+          <div id="crt-tech-stack" class="crt-tech-stack"></div>
+
+          <div class="crt-actions-row">
+            <button id="crt-close-btn" class="crt-close-btn" type="button">⏏ EJECT TAPE</button>
+            <div class="crt-links-group">
+              <a id="crt-github-link" href="https://github.com/AdityaJinu11" target="_blank" rel="noopener noreferrer" class="crt-ext-link">
+                <span>👾</span> VIEW REPOSITORY
+              </a>
+              <a id="crt-live-link" href="https://github.com/AdityaJinu11" target="_blank" rel="noopener noreferrer" class="crt-ext-link">
+                <span>🚀</span> LIVE SYSTEM
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         5. SECTION 3: THE CHRISTMAS LIGHTS CIPHER (CONTACT ME)
+         ========================================================================= -->
+    <section id="contact" class="christmas-lights-section">
+      <div class="section-retro-header">
+        <span class="section-label">FREQUENCY: 14.8 MHz • JOYCE'S LIVING ROOM</span>
+        <h2 class="section-main-heading">CHRISTMAS LIGHTS CIPHER</h2>
+        <p class="section-subtitle">Type your transmission • Watch the wall illuminate letter-by-letter</p>
+      </div>
+
+      <div class="contact-layout-grid">
+        
+        <!-- Joyce's Alphabet Wallpaper Wall with Strung Fairy Lights -->
+        <div class="joyce-alphabet-wall-container">
+          <div id="alphabet-wall" class="alphabet-wall">
+            <!-- Dynamically generated 26 Christmas lightbulbs and letters (A to Z) -->
+          </div>
+
+          <!-- Easter Egg Secret Words Bar -->
+          <div class="cipher-easter-eggs">
+            <div class="easter-egg-title">⚡ TRANSMIT SECRET CODEWORDS:</div>
+            <div class="easter-egg-tags">
+              <button class="cipher-code-tag" data-word="RUN" type="button">"RUN"</button>
+              <button class="cipher-code-tag" data-word="UPSIDEDOWN" type="button">"UPSIDEDOWN"</button>
+              <button class="cipher-code-tag" data-word="ELEVEN" type="button">"ELEVEN"</button>
+              <button class="cipher-code-tag" data-word="ADITYA" type="button">"ADITYA"</button>
+              <button class="cipher-code-tag" data-word="AICODER" type="button">"AICODER"</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hawkins Walkie-Talkie Contact Form & Real Info Card -->
+        <div class="walkie-talkie-box">
+          <div class="walkie-antenna"></div>
+          
+          <div class="walkie-header">
+            <h3 class="walkie-title">HAWKINS WALKIE-TALKIE</h3>
+            <span class="walkie-frequency">CHANNEL 11 • OVER & OUT</span>
+          </div>
+
+          <form id="cipher-form" class="cipher-form">
+            <div class="form-field-group">
+              <label for="cipher-name">CALLSIGN / YOUR NAME:</label>
+              <input type="text" id="cipher-name" class="walkie-input" placeholder="e.g. Chief Hopper" required>
+            </div>
+
+            <div class="form-field-group">
+              <label for="cipher-email">TRANSMISSION FREQUENCY (EMAIL):</label>
+              <input type="email" id="cipher-email" class="walkie-input" placeholder="e.g. hopper@hawkins.gov" required>
+            </div>
+
+            <div class="form-field-group">
+              <label for="cipher-message">TRANSMISSION MESSAGE (TYPES LIGHTS):</label>
+              <textarea id="cipher-message" class="walkie-textarea" rows="4" placeholder="Type here and watch the Christmas lights flicker..." required></textarea>
+            </div>
+
+            <button type="submit" class="walkie-transmit-btn">
+              <span>📡</span> TRANSMIT TO THE VOID [SEND MESSAGE]
+            </button>
+          </form>
+
+          <!-- Demogorgon Void Status Message -->
+          <div id="transmission-status" class="transmission-status"></div>
+
+          <!-- Real Direct Contact Coordinates Card -->
+          <div class="direct-info-card">
+            <h4>DIRECT HAWKINS COORDINATES:</h4>
+            <ul class="direct-contact-list">
+              <li>📞 <strong>Phone:</strong> <a href="tel:+917869061976">+91 7869061976</a></li>
+              <li>📧 <strong>Email:</strong> <a href="mailto:aditya.jinu11@gmail.com">aditya.jinu11@gmail.com</a></li>
+              <li>💼 <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/aditya-jinu-3835493b9" target="_blank" rel="noopener noreferrer">linkedin.com/in/aditya-jinu-3835493b9</a></li>
+              <li>👾 <strong>GitHub:</strong> <a href="https://github.com/AdityaJinu11" target="_blank" rel="noopener noreferrer">github.com/AdityaJinu11</a></li>
+              <li>🏫 <strong>Institution:</strong> Newton School of Technology x ADYPU, Pune</li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="hawkins-footer">
+      <p class="footer-quote">"Mornings are for coffee and contemplation... nights are for training neural networks."</p>
+      <p class="footer-copy">© 1984–2026 ADITYA JINU • B.TECH CSE (AI/ML) • ENGINEERED WITH RETRO PRECISION</p>
+    </footer>
+
+  </main>
+
+  <!-- =========================================================================
+       FLOATING RETRO CASSETTE PLAYER (AUDIO HUD)
+       ========================================================================= -->
+  <div class="cassette-widget-wrapper">
+    <div id="cassette-widget" class="cassette-deck">
+      <div class="cassette-spools">
+        <div class="cassette-spool"></div>
+        <div class="cassette-spool"></div>
+      </div>
+      <div class="cassette-track-info">
+        <span class="cassette-title">HAWKINS SYNTHWAVE '84</span>
+        <span id="cassette-status" class="cassette-status">CLICK TO PLAY BGM</span>
+      </div>
+      <button id="cassette-toggle-btn" class="cassette-btn" type="button" aria-label="Toggle Hawkins Synth Music">
+        ▶
+      </button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/arcade.js"></script>
+  <script src="js/dnd.js"></script>
+  <script src="js/vhs.js"></script>
+  <script src="js/cipher.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
